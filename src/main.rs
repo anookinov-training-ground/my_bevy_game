@@ -1,14 +1,28 @@
 use bevy::prelude::*;
 
+pub struct HelloPlugin;
+
+impl Plugin for HelloPlugin {
+    fn build(&self, app: &mut AppBuilder) {
+        // add things to your app here
+        app.add_startup_system(add_people.system())
+            .add_system(hello_world.system())
+            .add_system(greet_people.system());
+    }
+}
+
 struct Person;
 
 struct Name(String);
 
 fn main() {
     App::build()
-        .add_startup_system(add_people.system())
-        .add_system(hello_world.system())
-        .add_system(greet_people.system())
+        // .add_plugin(CorePlugin::default())
+        // .add_plugin(InputPlugin::default())
+        // .add_plugin(WindowPlugin::default())
+        // /* more plugins omitted for brevity */
+        .add_plugins(DefaultPlugins)
+        .add_plugin(HelloPlugin)
         .run();
 }
 
